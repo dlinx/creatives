@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>Magic Colors</title>
+		<style>
+			body {
+				margin: 0px
+			}
+			#can {
+				border: 1px solid #F00;
+				display: block;
+				margin: auto;
+				cursor: crosshair;
+			}
+
+		</style>
+		<script>
+			window.onload = function() {
+				ctx = document.getElementById("can").getContext("2d");
+				h = 700 - 10;
+				w = 1300 - 10;
+				ctx.canvas.width = w;
+				ctx.canvas.height = h;
+			};
+			window.onmousemove=function(evt) {
+				var x=evt.clientX;
+				var y=evt.clientY;
+				
+				var r=Math.round(x/(w/255));
+				var g=Math.round(y/(h/255));
+				var b=Math.round((x*y)/((w*h)/255));
+
+				var rg = ctx.createRadialGradient(x, y, 0.1, w/2, h/2 , (1300/2)+100);
+				rg.addColorStop(0, "rgb("+r+","+g+","+b+")");
+				rg.addColorStop(.5, "rgb("+b+","+r+","+g+")");
+				rg.addColorStop(1, "rgb("+g+","+b+","+r+")");
+
+				ctx.fillStyle = rg;
+				ctx.fillStyle = rg;
+				ctx.fillRect(0, 0, w, h);
+			};
+		</script>
+	</head>
+	<body>
+		<canvas id="can"></canvas>
+	</body>
+</html>
